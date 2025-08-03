@@ -3,7 +3,22 @@
 # Ask Doubt on telegram @KingVJ01
 
 
+# --- START OF NEW ADDITIONS ---
 import sys
+import asyncio
+
+# Force unbuffered stdout so Koyeb logs appear in real time
+sys.stdout.reconfigure(line_buffering=True)
+print("🔁 Bot is starting...")
+
+# Heartbeat function to show regular activity in logs
+async def heartbeat():
+    while True:
+        print("💓 Bot is alive")
+        await asyncio.sleep(30)
+# --- END OF NEW ADDITIONS ---
+
+
 import glob
 import importlib
 from pathlib import Path
@@ -38,8 +53,6 @@ import pytz
 from aiohttp import web
 from plugins import web_server
 
-import asyncio
-from pyrogram import idle
 from lazybot import LazyPrincessBot
 from util.keepalive import ping_server
 from lazybot.clients import initialize_clients
@@ -52,6 +65,10 @@ loop = asyncio.get_event_loop()
 
 
 async def Lazy_start():
+    # --- START OF NEW ADDITION ---
+    asyncio.create_task(heartbeat())  # Heartbeat starts here
+    # --- END OF NEW ADDITION ---
+
     print('\n')
     print('Initalizing Lazy Bot')
     bot_info = await LazyPrincessBot.get_me()
@@ -99,4 +116,3 @@ if __name__ == '__main__':
         loop.run_until_complete(Lazy_start())
     except KeyboardInterrupt:
         logging.info('Service Stopped Bye 👋')
-
