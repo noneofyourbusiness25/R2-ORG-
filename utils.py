@@ -605,7 +605,7 @@ async def get_token(bot, userid, link):
     TOKENS[user.id] = {token: False}
     link = f"{link}verify-{user.id}-{token}"
     shortened_verify_url = await get_verify_shorted_link(link)
-    print(shortened_verify_url)
+    logger.error(f"shortenedurl: {shortened_verify_url}")
     return str(shortened_verify_url)
 
 async def verify_user(bot, userid, token):
@@ -746,4 +746,5 @@ async def get_cap(settings, remaining_seconds, files, query, total_results, sear
         for file in files:
             cap += f"<b>📁 <a href='https://telegram.me/{temp.U_NAME}?start=files_{file.file_id}'>[{get_size(file.file_size)}] {' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('@') and not x.startswith('www.'), file.file_name.split()))}\n\n</a></b>"
     return cap
+
 
